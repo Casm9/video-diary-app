@@ -18,6 +18,7 @@ export const VideoPlayer: React.FC<CustomVideoPlayerProps> = ({
       <Video
         source={source}
         useNativeControls
+        resizeMode="contain"
         style={styles.video}
         {...props}
       />

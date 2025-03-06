@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-
-import { useVideoStore } from '../../store/videoStore';
-import { VideoPlayer } from '../../components/VideoPlayer';
+import { useVideoStore } from '../store/videoStore';
+import { VideoPlayer } from '../components/VideoPlayer';
 
 interface VideoItem {
   id: string;
@@ -17,31 +16,32 @@ export default function MainScreen() {
 
   const renderVideoItem = ({ item }: {item: VideoItem}) => (
     <TouchableOpacity 
+      style={{ padding: 10, margin: 10, backgroundColor: 'lightgray' }}
       onPress={() => router.push({
         pathname: '/details',
         params: { videoId: item.id }
       })}
-      className="p-4 border-b border-gray-200"
     >
-      <Text className="text-lg font-bold mb-2">{item.name}</Text>
+      <Text style={{ textAlign: 'center' }}>
+        {item.name}
+      </Text>
       <VideoPlayer
         source={{ uri: item.uri }}
         height={200}
-        className="w-full"
       />
     </TouchableOpacity>
   );
 
   return (
-    <View className="flex-1">
+    <View>
       {videos.length === 0 ? (
-        <View className="flex-1 justify-center items-center">
-          <Text className="text-gray-500">
+        <View style={{ padding: 20 }}>
+          <Text style={{ textAlign: 'center' }}>
             No videos yet. Start cropping your first video!
           </Text>
         </View>
       ) : (
-        <FlatList
+        <FlatList style={{ padding: 10 }}
           data={videos}
           renderItem={renderVideoItem}
           keyExtractor={(item) => item.id}
@@ -49,10 +49,10 @@ export default function MainScreen() {
       )}
 
       <TouchableOpacity 
+        style={{ padding: 10, backgroundColor: 'lightblue', margin: 10 }}
         onPress={() => router.push('/crop')}
-        className="bg-blue-500 p-4 items-center"
       >
-        <Text className="text-white font-bold">Crop New Video</Text>
+        <Text style={{textAlign: 'center'}}>Crop New Video</Text>
       </TouchableOpacity>
     </View>
   );

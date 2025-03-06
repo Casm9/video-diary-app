@@ -11,10 +11,10 @@ interface CropModalProps {
   onVideoPicked: (uri: string) => void;
 }
 
-export const CropModal: React.FC<CropModalProps> = ({ 
-  isVisible, 
-  onClose, 
-  onVideoPicked 
+export const CropModal: React.FC<CropModalProps> = ({
+  isVisible,
+  onClose,
+  onVideoPicked
 }) => {
   const [videoUri, setVideoUri] = useState<string | null>(null);
   const [startTime, setStartTime] = useState(0);
@@ -24,7 +24,7 @@ export const CropModal: React.FC<CropModalProps> = ({
   const pickVideo = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+        mediaTypes: ['videos'],
         allowsEditing: false,
         quality: 1,
       });
@@ -54,28 +54,52 @@ export const CropModal: React.FC<CropModalProps> = ({
       animationType="slide"
       onRequestClose={onClose}
     >
-      <View className="flex-1 justify-center items-center bg-black/50 p-4">
-        <View className="bg-white rounded-lg w-full p-4">
-          <Text className="text-xl font-bold mb-4">Select Video</Text>
+      <View style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        padding: 16
+      }}>
+        <View style={{
+          backgroundColor: 'white',
+          borderRadius: 8,
+          width: '100%',
+          padding: 16
+        }}>
+          <Text style={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            marginBottom: 16
+          }}>Select Video</Text>
 
           {/* Video Picker */}
           {!videoUri ? (
-            <TouchableOpacity 
+            <TouchableOpacity
               onPress={pickVideo}
-              className="bg-blue-500 p-4 rounded items-center"
+              style={{
+                backgroundColor: '#3B82F6',
+                padding: 16,
+                borderRadius: 4,
+                alignItems: 'center'
+              }}
             >
-              <Text className="text-white">Pick Video</Text>
+              <Text style={{ color: 'white' }}>Pick Video</Text>
             </TouchableOpacity>
           ) : (
             <>
               {/* Video Preview */}
               <VideoPlayer
                 source={{ uri: videoUri }}
-                className="w-full h-64 mb-4"
+                style={{
+                  width: '100%',
+                  height: 256,
+                  marginBottom: 16
+                }}
               />
 
               {/* Start Time Slider */}
-              <View className="mb-4">
+              <View style={{ marginBottom: 16 }}>
                 <Text>Start Time: {startTime.toFixed(2)} seconds</Text>
                 <Slider
                   value={startTime}
@@ -89,18 +113,42 @@ export const CropModal: React.FC<CropModalProps> = ({
               </View>
 
               {/* Confirm Buttons */}
-              <View className="flex-row justify-between">
-                <TouchableOpacity 
+              <View style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}>
+                <TouchableOpacity
                   onPress={handleConfirm}
-                  className="bg-green-500 p-3 rounded flex-1 mr-2"
+                  style={{
+                    backgroundColor: '#10B981',
+                    padding: 12,
+                    borderRadius: 4,
+                    flex: 1,
+                    marginRight: 8
+                  }}
                 >
-                  <Text className="text-white text-center">Confirm</Text>
+                  <Text style={{
+                    color: 'white',
+                    textAlign: 'center'
+                  }}>
+                    Confirm
+                  </Text>
                 </TouchableOpacity>
-                <TouchableOpacity 
+                <TouchableOpacity
                   onPress={onClose}
-                  className="bg-red-500 p-3 rounded flex-1"
+                  style={{
+                    backgroundColor: '#EF4444',
+                    padding: 12,
+                    borderRadius: 4,
+                    flex: 1
+                  }}
                 >
-                  <Text className="text-white text-center">Cancel</Text>
+                  <Text style={{
+                    color: 'white',
+                    textAlign: 'center'
+                  }}>
+                    Cancel
+                  </Text>
                 </TouchableOpacity>
               </View>
             </>

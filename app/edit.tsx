@@ -3,11 +3,10 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { useVideoStore } from '../../store/videoStore';
-import { videoMetadataSchema, VideoMetadata } from '../../utils/validation';
-import { MetadataForm } from '../../components/MetadataForm';
-import { VideoPlayer } from '../../components/VideoPlayer';
+import { useVideoStore } from '../store/videoStore';
+import { videoMetadataSchema, VideoMetadata } from '../utils/validation';
+import { MetadataForm } from '../components/MetadataForm';
+import { VideoPlayer } from '../components/VideoPlayer';
 
 export default function EditScreen() {
   const router = useRouter();
@@ -41,24 +40,24 @@ export default function EditScreen() {
   // If no video found
   if (!video) {
     return (
-      <View className="flex-1 justify-center items-center p-4">
-        <Text className="text-lg text-red-500">Video not found</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16 }}>
+        <Text style={{ fontSize: 18, color: '#EF4444' }}>Video not found</Text>
         <TouchableOpacity 
           onPress={() => router.push('/')}
-          className="mt-4 bg-blue-500 p-3 rounded"
+          style={{ marginTop: 16, backgroundColor: '#3B82F6', padding: 12, borderRadius: 4 }}
         >
-          <Text className="text-white">Back to Home</Text>
+          <Text style={{ color: 'white' }}>Back to Home</Text>
         </TouchableOpacity>
       </View>
     );
   }
 
   return (
-    <View className="flex-1 p-4">
+    <View style={{ flex: 1, padding: 16 }}>
       {/* Video Preview */}
       <VideoPlayer
         source={{ uri: video.uri }}
-        className="w-full h-64 mb-4"
+        style={{ width: '100%', height: 256, marginBottom: 16 }}
       />
 
       {/* Metadata Form */}
@@ -68,19 +67,19 @@ export default function EditScreen() {
       />
 
       {/* Action Buttons */}
-      <View className="flex-row justify-between mt-4">
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 16 }}>
         <TouchableOpacity 
           onPress={handleSubmit(onSubmit)}
-          className="bg-green-500 p-3 rounded flex-1 mr-2"
+          style={{ backgroundColor: '#22C55E', padding: 12, borderRadius: 4, flex: 1, marginRight: 8 }}
         >
-          <Text className="text-white text-center">Save Changes</Text>
+          <Text style={{ color: 'white', textAlign: 'center' }}>Save Changes</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           onPress={() => router.back()}
-          className="bg-gray-500 p-3 rounded flex-1"
+          style={{ backgroundColor: '#6B7280', padding: 12, borderRadius: 4, flex: 1 }}
         >
-          <Text className="text-white text-center">Cancel</Text>
+          <Text style={{ color: 'white', textAlign: 'center' }}>Cancel</Text>
         </TouchableOpacity>
       </View>
     </View>

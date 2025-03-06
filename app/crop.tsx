@@ -3,14 +3,12 @@ import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-// Import new components and utilities
-import { CropModal } from '../../components/CropModal';
-import { MetadataForm } from '../../components/MetadataForm';
-import { VideoPlayer } from '../../components/VideoPlayer';
-import { useVideoOperations } from '../../utils/queryConfig';
-import { useVideoStore } from '../../store/videoStore';
-import { videoMetadataSchema, VideoMetadata } from '../../utils/validation';
+import { CropModal } from '../components/CropModal';
+import { MetadataForm } from '../components/MetadataForm';
+import { VideoPlayer } from '../components/VideoPlayer';
+import { useVideoOperations } from '../utils/queryConfig';
+import { useVideoStore } from '../store/videoStore';
+import { videoMetadataSchema, VideoMetadata } from '../utils/validation';
 
 export default function CropScreen() {
   const router = useRouter();
@@ -64,25 +62,24 @@ export default function CropScreen() {
   };
 
   return (
-    <View className="flex-1 p-4">
-      <Text className="text-2xl font-bold mb-4">Crop Video</Text>
+    <View style={{ padding: 20 }}>
 
       {/* Video Selection */}
       <TouchableOpacity 
         onPress={() => setIsCropModalVisible(true)}
-        className="bg-blue-500 p-4 rounded items-center mb-4"
+        style={{ padding: 10, backgroundColor: 'lightblue', margin: 10 }}
       >
-        <Text className="text-white">
+        <Text style={{ textAlign: 'center' }}>
           {videoUri ? 'Change Video' : 'Select Video'}
         </Text>
       </TouchableOpacity>
 
       {/* Video Preview */}
       {videoUri && (
-        <View className="mb-4">
+        <View style={{ marginVertical: 10 }}>
           <VideoPlayer
             source={{ uri: videoUri }}
-            className="w-full h-64"
+            style={{ width: '100%', height: 200 }}
           />
         </View>
       )}
@@ -97,13 +94,14 @@ export default function CropScreen() {
       <TouchableOpacity 
         onPress={handleSubmit(onSubmit)}
         disabled={!videoUri}
-        className={`p-4 rounded mt-4 ${
-          videoUri 
-            ? 'bg-green-500' 
-            : 'bg-gray-300'
-        }`}
+        style={{
+          padding: 16,
+          borderRadius: 4,
+          marginTop: 16,
+          backgroundColor: videoUri ? '#10b981' : '#d1d5db'
+        }}
       >
-        <Text className="text-white text-center">
+        <Text style={{ textAlign: 'center' }}>
           Crop and Save Video
         </Text>
       </TouchableOpacity>

@@ -13,10 +13,10 @@ export const MetadataForm: React.FC<MetadataFormProps> = ({
   errors 
 }) => {
   return (
-    <View className="space-y-4">
+    <View style={{ marginVertical: 16 }}>
       {/* Name Input */}
       <View>
-        <Text className="mb-2 text-gray-700">Video Name</Text>
+        <Text style={{ marginBottom: 8, color: '#4a5568' }}>Video Name</Text>
         <Controller
           control={control}
           name="name"
@@ -26,12 +26,15 @@ export const MetadataForm: React.FC<MetadataFormProps> = ({
                 placeholder="Enter video name"
                 value={value}
                 onChangeText={onChange}
-                className={`border p-2 rounded ${
-                  errors.name ? 'border-red-500' : 'border-gray-300'
-                }`}
+                style={{
+                  borderWidth: 1,
+                  padding: 8,
+                  borderRadius: 4,
+                  borderColor: errors.name ? '#f56565' : '#d1d5db'
+                }}
               />
               {errors.name && (
-                <Text className="text-red-500 mt-1">
+                <Text style={{ color: '#f56565', marginTop: 4 }}>
                   {errors.name.message}
                 </Text>
               )}
@@ -41,8 +44,8 @@ export const MetadataForm: React.FC<MetadataFormProps> = ({
       </View>
 
       {/* Description Input */}
-      <View>
-        <Text className="mb-2 text-gray-700">Description (Optional)</Text>
+      <View style={{ marginTop: 16 }}>
+        <Text style={{ marginBottom: 8, color: '#4a5568' }}>Description (Optional)</Text>
         <Controller
           control={control}
           name="description"
@@ -54,12 +57,16 @@ export const MetadataForm: React.FC<MetadataFormProps> = ({
                 onChangeText={onChange}
                 multiline
                 numberOfLines={4}
-                className={`border p-2 rounded h-24 ${
-                  errors.description ? 'border-red-500' : 'border-gray-300'
-                }`}
+                style={{
+                  borderWidth: 1,
+                  padding: 8,
+                  borderRadius: 4,
+                  height: 96,
+                  borderColor: errors.description ? '#f56565' : '#d1d5db'
+                }}
               />
               {errors.description && (
-                <Text className="text-red-500 mt-1">
+                <Text style={{ color: '#f56565', marginTop: 4 }}>
                   {errors.description.message}
                 </Text>
               )}
