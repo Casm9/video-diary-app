@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import Slider from '@react-native-community/slider';
 import * as ImagePicker from 'expo-image-picker';
-
 import { VideoPlayer } from './VideoPlayer';
 
 interface CropModalProps {
   isVisible: boolean;
   onClose: () => void;
-  onVideoPicked: (uri: string) => void;
+  onVideoPicked: (uri: string, startTime: number, endTime: number) => void;
 }
 
 export const CropModal: React.FC<CropModalProps> = ({
@@ -18,6 +17,7 @@ export const CropModal: React.FC<CropModalProps> = ({
 }) => {
   const [videoUri, setVideoUri] = useState<string | null>(null);
   const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
 
   // Pick a video from device
@@ -42,7 +42,7 @@ export const CropModal: React.FC<CropModalProps> = ({
   // Confirm video selection
   const handleConfirm = () => {
     if (videoUri) {
-      onVideoPicked(videoUri);
+      onVideoPicked(videoUri, startTime, endTime);
       onClose();
     }
   };
@@ -98,15 +98,26 @@ export const CropModal: React.FC<CropModalProps> = ({
                 }}
               />
 
-              {/* Start Time Slider */}
+              {/*Time Slider */}
               <View style={{ marginBottom: 16 }}>
-                <Text>Start Time: {startTime.toFixed(2)} seconds</Text>
+              <Text style={{ marginBottom: 8 }}>Video Duration: {(videoDuration / 1000).toFixed(2)} seconds</Text>
+              <Text style={{ marginBottom: 8 }}>Start Time: {(startTime / 1000).toFixed(2)} seconds</Text>
                 <Slider
                   value={startTime}
                   onValueChange={setStartTime}
                   minimumValue={0}
                   maximumValue={videoDuration}
-                  step={0.1}
+                  step={1}
+                  minimumTrackTintColor="#3B82F6"
+                  maximumTrackTintColor="#CCCCCC"
+                />
+                 <Text style={{ marginTop: 8 }}>End Time: {(endTime / 1000).toFixed(2)} seconds</Text>
+                <Slider
+                  value={videoDuration}
+                  onValueChange={setEndTime}
+                  minimumValue={startTime}
+                  maximumValue={videoDuration}
+                  step={1}
                   minimumTrackTintColor="#3B82F6"
                   maximumTrackTintColor="#CCCCCC"
                 />

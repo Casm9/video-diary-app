@@ -20,18 +20,20 @@ export function useVideoCrop() {
   const cropVideoMutation = useMutation({
     mutationFn: async ({ 
       videoUri, 
-      startTime, 
+      startTime,
+      endTime, 
       name, 
       description 
     }: {
       videoUri: string, 
-      startTime: number, 
+      startTime: number,
+      endTime: number, 
       name: string, 
       description?: string
     }) => {
       try {
         // Crop the video
-        const croppedVideoUri = await cropVideo(videoUri, startTime);
+        const croppedVideoUri = await cropVideo(videoUri, startTime, endTime);
         
         // Add to store
         addVideo({

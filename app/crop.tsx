@@ -13,8 +13,9 @@ import { videoMetadataSchema, VideoMetadata } from '../utils/validation';
 export default function CropScreen() {
   const router = useRouter();
   const [videoUri, setVideoUri] = useState<string | null>(null);
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
   const [isCropModalVisible, setIsCropModalVisible] = useState(false);
-  
   const { addVideo } = useVideoStore();
   const { cropVideoMutation } = useVideoOperations();
 
@@ -28,8 +29,10 @@ export default function CropScreen() {
   });
 
   // Handle video selection from CropModal
-  const handleVideoPicked = (uri: string) => {
+  const handleVideoPicked = (uri: string, selectedStartTime: number, seletectedEndTime: number) => {
     setVideoUri(uri);
+    setStartTime(selectedStartTime);
+    setEndTime(seletectedEndTime);
   };
 
   // Submit form with cropped video
@@ -43,8 +46,8 @@ export default function CropScreen() {
       // Crop video using mutation
       const croppedVideoUri = await cropVideoMutation.mutateAsync({
         videoUri,
-        startTime: 0, // You might want to pass this from CropModal
-        duration: 5
+        startTime,
+        endTime,
       });
 
       // Add to video store

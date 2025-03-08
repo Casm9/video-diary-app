@@ -1,15 +1,14 @@
 import { FFmpegKit, ReturnCode } from 'ffmpeg-kit-react-native';
 import * as FileSystem from 'expo-file-system';
-import { VideoMetadata } from './validation';
 
 export async function cropVideo(
   inputUri: string, 
   startTime: number, 
-  duration: number = 5
+  endTime: number
 ): Promise<string> {
   const outputUri = `${FileSystem.documentDirectory}cropped_video_${Date.now()}.mp4`;
   
-  const ffmpegCommand = `-i ${inputUri} -ss ${startTime} -t ${duration} -c copy ${outputUri}`;
+  const ffmpegCommand = `-i ${inputUri} -ss ${startTime} -to ${endTime} -c copy ${outputUri}`;
   
   try {
     const session = await FFmpegKit.execute(ffmpegCommand);

@@ -27,16 +27,16 @@ export function useVideoOperations() {
     mutationFn: async ({ 
       videoUri, 
       startTime, 
-      duration = 5 
+      endTime
     }: { 
       videoUri: string, 
       startTime: number, 
-      duration?: number 
+      endTime: number 
     }) => {
       try {
         // Implement actual video cropping logic
         // This is a placeholder - replace with actual FFMPEG cropping
-        return await cropVideoWithFFMPEG(videoUri, startTime, duration);
+        return await cropVideoWithFFMPEG(videoUri, startTime, endTime);
       } catch (error) {
         console.error('Video cropping failed', error);
         throw error;
@@ -75,10 +75,10 @@ export function QueryProvider({ children }: { children: React.ReactNode }) {
 async function cropVideoWithFFMPEG(
   videoUri: string, 
   startTime: number, 
-  duration: number
+  endTime: number
 ): Promise<string> {
   // Actual FFMPEG cropping logic
-  console.log('Cropping video', { videoUri, startTime, duration });
+  console.log('Cropping video', { videoUri, startTime, endTime });
   return videoUri; // Placeholder
 }
 
