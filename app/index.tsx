@@ -14,26 +14,29 @@ export default function MainScreen() {
   const router = useRouter();
   const { videos } = useVideoStore();
 
-  const renderVideoItem = ({ item }: {item: VideoItem}) => (
-    <TouchableOpacity 
-      style={{ padding: 10, margin: 10, backgroundColor: 'lightgray' }}
-      onPress={() => router.push({
-        pathname: '/details',
-        params: { videoId: item.id }
-      })}
-    >
-      <Text style={{ textAlign: 'center' }}>
-        {item.name}
-      </Text>
-      <VideoPlayer
-        source={{ uri: item.uri }}
-        height={200}
-      />
-    </TouchableOpacity>
+  const renderVideoItem = ({ item }: { item: VideoItem }) => (
+    <View style={{ height:250 }}>
+      <TouchableOpacity
+        style={{ padding: 10, margin: 10, backgroundColor: 'lightgray' }}
+        onPress={() => router.push({
+          pathname: '/details',
+          params: { videoId: item.id }
+        })}
+      >
+        <Text style={{ textAlign: 'center' }}>
+          {item.name}
+        </Text>
+        <VideoPlayer
+          source={{ uri: item.uri }}
+          style={{ width: '100%', height: 200 }}
+        />
+      </TouchableOpacity>
+
+    </View>
   );
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       {videos.length === 0 ? (
         <View style={{ padding: 20 }}>
           <Text style={{ textAlign: 'center' }}>
@@ -48,11 +51,11 @@ export default function MainScreen() {
         />
       )}
 
-      <TouchableOpacity 
+      <TouchableOpacity
         style={{ padding: 10, backgroundColor: 'lightblue', margin: 10 }}
         onPress={() => router.push('/crop')}
       >
-        <Text style={{textAlign: 'center'}}>Crop New Video</Text>
+        <Text style={{ textAlign: 'center' }}>Crop New Video</Text>
       </TouchableOpacity>
     </View>
   );
