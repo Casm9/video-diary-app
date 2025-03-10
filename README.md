@@ -24,3 +24,6 @@ In the output, you'll find options to open the app in a
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
 ## App Preview
+
+https://github.com/user-attachments/assets/07da61c3-2626-4381-9281-3345f8313899
+
