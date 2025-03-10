@@ -8,9 +8,9 @@ interface MetadataFormProps {
   errors: FieldErrors<VideoMetadata>;
 }
 
-export const MetadataForm: React.FC<MetadataFormProps> = ({ 
-  control, 
-  errors 
+export const MetadataForm: React.FC<MetadataFormProps> = ({
+  control,
+  errors
 }) => {
   return (
     <View style={{ marginVertical: 16 }}>

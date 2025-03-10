@@ -20,10 +20,10 @@ export default function CropScreen() {
   const { cropVideoMutation } = useVideoOperations();
 
   // Form setup
-  const { 
-    control, 
-    handleSubmit, 
-    formState: { errors } 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
   } = useForm<VideoMetadata>({
     resolver: zodResolver(videoMetadataSchema)
   });
@@ -68,7 +68,7 @@ export default function CropScreen() {
     <View style={{ padding: 20 }}>
 
       {/* Video Selection */}
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={() => setIsCropModalVisible(true)}
         style={{ padding: 10, backgroundColor: 'lightblue', margin: 10 }}
       >
@@ -88,13 +88,13 @@ export default function CropScreen() {
       )}
 
       {/* Metadata Form */}
-      <MetadataForm 
+      <MetadataForm
         control={control}
         errors={errors}
       />
 
       {/* Submit Button */}
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={handleSubmit(onSubmit)}
         disabled={!videoUri}
         style={{

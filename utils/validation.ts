@@ -6,7 +6,7 @@ export const videoMetadataSchema = z.object({
     .min(1, { message: "Name is required" })
     .max(50, { message: "Name must be 50 characters or less" })
     .trim(),
-  
+
   description: z.string()
     .max(250, { message: "Description must be 250 characters or less" })
     .optional()

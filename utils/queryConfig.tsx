@@ -1,10 +1,12 @@
 import React from 'react';
-import { 
-  QueryClient, 
-  QueryClientProvider, 
-  useQuery, 
-  useMutation 
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+  useMutation
 } from '@tanstack/react-query';
+import { cropVideo } from './ffmpegHelper';
+import * as FileSystem from 'expo-file-system';
 
 // Create a query client
 export const queryClient = new QueryClient({
@@ -24,18 +26,16 @@ export const queryClient = new QueryClient({
 export function useVideoOperations() {
   // Video cropping mutation
   const cropVideoMutation = useMutation({
-    mutationFn: async ({ 
-      videoUri, 
-      startTime, 
+    mutationFn: async ({
+      videoUri,
+      startTime,
       endTime
-    }: { 
-      videoUri: string, 
-      startTime: number, 
-      endTime: number 
+    }: {
+      videoUri: string,
+      startTime: number,
+      endTime: number
     }) => {
       try {
-        // Implement actual video cropping logic
-        // This is a placeholder - replace with actual FFMPEG cropping
         return await cropVideoWithFFMPEG(videoUri, startTime, endTime);
       } catch (error) {
         console.error('Video cropping failed', error);
@@ -49,8 +49,6 @@ export function useVideoOperations() {
     return useQuery({
       queryKey: ['videoDetails', videoId],
       queryFn: async () => {
-        // Implement video details fetching logic
-        // This is a placeholder
         return fetchVideoDetailsFromStorage(videoId);
       }
     });
@@ -62,7 +60,6 @@ export function useVideoOperations() {
   };
 }
 
-// Wrapper component for query provider
 export function QueryProvider({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
@@ -71,19 +68,34 @@ export function QueryProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Placeholder functions - replace with actual implementations
 async function cropVideoWithFFMPEG(
-  videoUri: string, 
-  startTime: number, 
+  videoUri: string,
+  startTime: number,
   endTime: number
 ): Promise<string> {
-  // Actual FFMPEG cropping logic
+
+  //return await cropVideo(videoUri, startTime, endTime);
   console.log('Cropping video', { videoUri, startTime, endTime });
-  return videoUri; // Placeholder
+  return videoUri;
 }
 
 async function fetchVideoDetailsFromStorage(videoId: string) {
-  // Actual video details fetching logic
-  console.log('Fetching video details', videoId);
-  return {}; // Placeholder
+
+  try {
+    const videoPath = `${FileSystem.documentDirectory}${videoId}.mp4`;
+    const fileInfo = await FileSystem.getInfoAsync(videoPath);
+
+    if (!fileInfo.exists) {
+      throw new Error('Video file not found');
+    }
+
+    return {
+      uri: videoPath,
+      size: fileInfo.size,
+      modified: fileInfo.modificationTime
+    };
+  } catch (error) {
+    console.error('Error fetching video details:', error);
+    throw error;
+  }
 }

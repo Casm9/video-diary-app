@@ -26,10 +26,10 @@ export function useVideoStorage<T>(key: string, initialValue: T) {
   // Save value to storage
   const setValue = async (value: T | ((val: T) => T)) => {
     try {
-      const valueToStore = value instanceof Function 
-        ? value(storedValue) 
+      const valueToStore = value instanceof Function
+        ? value(storedValue)
         : value;
-      
+
       setStoredValue(valueToStore);
       await AsyncStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {

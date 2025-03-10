@@ -12,15 +12,15 @@ export default function EditScreen() {
   const router = useRouter();
   const { videoId } = useLocalSearchParams<{ videoId: string }>();
   const { videos, updateVideo } = useVideoStore();
-  
+
   // Find the specific video
   const video = videos.find(v => v.id === videoId);
 
   // Form setup
-  const { 
-    control, 
-    handleSubmit, 
-    formState: { errors } 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
   } = useForm<VideoMetadata>({
     resolver: zodResolver(videoMetadataSchema),
     defaultValues: {
@@ -42,7 +42,7 @@ export default function EditScreen() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16 }}>
         <Text style={{ fontSize: 18, color: '#EF4444' }}>Video not found</Text>
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => router.push('/')}
           style={{ marginTop: 16, backgroundColor: '#3B82F6', padding: 12, borderRadius: 4 }}
         >
@@ -61,21 +61,21 @@ export default function EditScreen() {
       />
 
       {/* Metadata Form */}
-      <MetadataForm 
+      <MetadataForm
         control={control}
         errors={errors}
       />
 
       {/* Action Buttons */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 16 }}>
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
           style={{ backgroundColor: '#22C55E', padding: 12, borderRadius: 4, flex: 1, marginRight: 8 }}
         >
           <Text style={{ color: 'white', textAlign: 'center' }}>Save Changes</Text>
         </TouchableOpacity>
-        
-        <TouchableOpacity 
+
+        <TouchableOpacity
           onPress={() => router.back()}
           style={{ backgroundColor: '#6B7280', padding: 12, borderRadius: 4, flex: 1 }}
         >

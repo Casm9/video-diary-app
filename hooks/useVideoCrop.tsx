@@ -18,23 +18,23 @@ export function useVideoCrop() {
   const { addVideo } = useVideoStore();
 
   const cropVideoMutation = useMutation({
-    mutationFn: async ({ 
-      videoUri, 
+    mutationFn: async ({
+      videoUri,
       startTime,
-      endTime, 
-      name, 
-      description 
+      endTime,
+      name,
+      description
     }: {
-      videoUri: string, 
+      videoUri: string,
       startTime: number,
-      endTime: number, 
-      name: string, 
+      endTime: number,
+      name: string,
       description?: string
     }) => {
       try {
         // Crop the video
         const croppedVideoUri = await cropVideo(videoUri, startTime, endTime);
-        
+
         // Add to store
         addVideo({
           uri: croppedVideoUri,
@@ -53,7 +53,6 @@ export function useVideoCrop() {
   return cropVideoMutation;
 }
 
-// Wrap your app with QueryClientProvider
 export function QueryProvider({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>

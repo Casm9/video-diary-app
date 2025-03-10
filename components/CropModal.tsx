@@ -100,8 +100,8 @@ export const CropModal: React.FC<CropModalProps> = ({
 
               {/*Time Slider */}
               <View style={{ marginBottom: 16 }}>
-              <Text style={{ marginBottom: 8 }}>Video Duration: {(videoDuration / 1000).toFixed(2)} seconds</Text>
-              <Text style={{ marginBottom: 8 }}>Start Time: {(startTime / 1000).toFixed(2)} seconds</Text>
+                <Text style={{ marginBottom: 8 }}>Video Duration: {(videoDuration / 1000).toFixed(2)} seconds</Text>
+                <Text style={{ marginBottom: 8 }}>Start Time: {(startTime / 1000).toFixed(2)} seconds</Text>
                 <Slider
                   value={startTime}
                   onValueChange={setStartTime}
@@ -111,7 +111,7 @@ export const CropModal: React.FC<CropModalProps> = ({
                   minimumTrackTintColor="#3B82F6"
                   maximumTrackTintColor="#CCCCCC"
                 />
-                 <Text style={{ marginTop: 8 }}>End Time: {(endTime / 1000).toFixed(2)} seconds</Text>
+                <Text style={{ marginTop: 8 }}>End Time: {(endTime / 1000).toFixed(2)} seconds</Text>
                 <Slider
                   value={videoDuration}
                   onValueChange={setEndTime}
